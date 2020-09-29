@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
      |-----------------------------------------------------------------|
      */
 
-    Route::resource('photos', PostController::class)->except(['index', 'show']);
+    Route::resource('posts', PostController::class)->except(['index', 'show']);
 });
 
 Route::resource('posts', PostController::class)->only(['index', 'show']);

@@ -24,14 +24,15 @@ files.keys().map((key) => {
     if (dir !== 'components' && dir.charAt(0) !== '_') {
         file = dir + '' + file;
     }
+
     Vue.component(file.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/^-+|-+$/g, '').toLowerCase(), files(key).default)
 });
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 const app = new Vue({
     el: '#app',
 });
