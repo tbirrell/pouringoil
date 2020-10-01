@@ -21,3 +21,7 @@ mix.js('resources/js/app.js', 'public/js')
     //     extensions: ['twig', 'html', 'js', 'php', 'vue'],
     // })
     .setPublicPath('public');
+
+mix.browserSync({
+    proxy: process.env.MIX_BROWSER_SYNC_PROXY
+});

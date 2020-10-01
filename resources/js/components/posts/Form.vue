@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <textarea></textarea>
+    <div class="flex justify-center">
+        <textarea class="w-full h-64"></textarea>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         save: function () {
-            
+
         }
     }
 }

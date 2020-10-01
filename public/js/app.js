@@ -37595,7 +37595,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("textarea")])
+    return _c("div", { staticClass: "flex justify-center" }, [
+      _c("textarea", { staticClass: "w-full h-64" })
+    ])
   }
 ]
 render._withStripped = true

@@ -586,6 +586,25 @@ video {
   height: auto;
 }
 
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.875rem;
+}
+
+a {
+  --text-opacity: 1;
+  color: #3182ce;
+  color: rgba(49, 130, 206, var(--text-opacity));
+  text-decoration: underline;
+}
+
 .container {
   width: 100%;
 }
@@ -21023,6 +21042,15 @@ video {
 .animate-bounce {
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
+}
+
+textarea, input {
+  border-width: 1px;
+  border-style: solid;
+  --border-opacity: 1;
+  border-color: #e2e8f0;
+  border-color: rgba(226, 232, 240, var(--border-opacity));
+  border-radius: 0.25rem;
 }
 
 @media (min-width: 640px) {
