@@ -13,7 +13,7 @@ class CreateTextPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('text_post', function (Blueprint $table) {
+        Schema::create('text_posts', function (Blueprint $table) {
             $table->id();
             $table->text('text');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTextPostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('text_post');
+        Schema::dropIfExists('text_posts');
     }
 }

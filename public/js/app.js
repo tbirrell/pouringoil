@@ -1936,6 +1936,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     post: {
@@ -1945,7 +1964,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      content: ''
+      title: {
+        text: '',
+        auto: true
+      },
+      content: {
+        text: '',
+        auto: false
+      },
+      stub: {
+        text: '',
+        auto: true
+      }
     };
   },
   mounted: function mounted() {
@@ -1953,8 +1983,32 @@ __webpack_require__.r(__webpack_exports__);
       this.content = this.post.content;
     }
   },
+  watch: {
+    'content.text': function contentText(newValue, oldValue) {
+      this.autoTitle();
+      this.autoStub();
+    }
+  },
   methods: {
-    save: function save() {}
+    save: function save() {
+      axios.post('/posts/', {
+        title: this.title.text,
+        content: this.content.text,
+        stub: this.stub.text
+      });
+    },
+    autoTitle: function autoTitle() {
+      if (this.title.auto || this.title.text === '') {
+        this.title.auto = true;
+        this.title.text = this.content.text.match(/# ?(.*)/)[1];
+      }
+    },
+    autoStub: function autoStub() {
+      if (this.stub.auto || this.stub.text === '') {
+        this.stub.auto = true;
+        this.stub.text = this.content.text.substring(0, 1000);
+      }
+    }
   }
 });
 
@@ -37588,18 +37642,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h2", [_vm._v("Post")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex flex-row mt-8" }, [
+      _c("div", { staticClass: "w-1/6 font-lg font-bold" }, [
+        _vm._v("\n            Title:\n        ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.title.text,
+            expression: "title.text"
+          }
+        ],
+        staticClass: "w-5/6",
+        attrs: { type: "text" },
+        domProps: { value: _vm.title.text },
+        on: {
+          click: function($event) {
+            _vm.title.auto = false
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.title, "text", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex flex-row mt-8" }, [
+      _c("div", { staticClass: "w-1/6 font-lg font-bold" }, [
+        _vm._v("\n            Summary:\n        ")
+      ]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.stub.text,
+            expression: "stub.text"
+          }
+        ],
+        staticClass: "w-5/6 h-32",
+        domProps: { value: _vm.stub.text },
+        on: {
+          click: function($event) {
+            _vm.stub.auto = false
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.stub, "text", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex flex-row mt-8" }, [
+      _c("div", { staticClass: "w-1/6 font-lg font-bold" }, [
+        _vm._v("\n            Post:\n        ")
+      ]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.content.text,
+            expression: "content.text"
+          }
+        ],
+        staticClass: "w-5/6 h-64",
+        domProps: { value: _vm.content.text },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.content, "text", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-blue w-16 mt-4 float-right",
+        on: { click: _vm.save }
+      },
+      [_vm._v("Save")]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-center" }, [
-      _c("textarea", { staticClass: "w-full h-64" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

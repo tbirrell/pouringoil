@@ -13,7 +13,7 @@ class CreateFilePostTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_post', function (Blueprint $table) {
+        Schema::create('file_posts', function (Blueprint $table) {
             $table->id();
             $table->string('filepath');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateFilePostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_post');
+        Schema::dropIfExists('file_posts');
     }
 }

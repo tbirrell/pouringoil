@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class FilePost extends Model
+class FilePost extends BaseModel
 {
     //=== RELATIONSHIPS ===//
     public function post()
