@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Post</h2>
+        <h2>{{ pageTitle }}</h2>
         <div class="flex flex-row mt-8">
             <div class="w-1/6 font-lg font-bold">
                 Title:
@@ -33,6 +33,8 @@ export default {
     },
     data() {
         return {
+            pageTitle: 'Create Post',
+            postID: null,
             title: {
                 text: '',
                 auto: true
@@ -49,7 +51,15 @@ export default {
     },
     mounted() {
         if (typeof this.post !== 'undefined') {
-            this.content = this.post.content;
+            this.pageTitle = 'Edit Post';
+            this.postID = this.post.id;
+
+            this.content.text = this.post.content;
+            this.content.auto = false;
+            this.title.text = this.post.title;
+            this.title.auto = false;
+            this.stub.text = this.post.stub;
+            this.stub.auto = false;
         }
     },
     watch: {
@@ -60,11 +70,16 @@ export default {
     },
     methods: {
         save: function () {
-            axios.post('/posts/', {
+            let data = {
                 title: this.title.text,
                 content: this.content.text,
-                stub: this.stub.text,
-            })
+                stub: this.stub.text.substring(0, 1000)
+            };
+            if (this.postID === null) {
+                axios.post('/posts/', data);
+            } else {
+                axios.put('/posts/'+this.postID, data);
+            }
         },
         autoTitle: function () {
             if (this.title.auto || this.title.text === '') {

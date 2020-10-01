@@ -598,6 +598,13 @@ h3 {
   font-size: 1.875rem;
 }
 
+a {
+  --text-opacity: 1;
+  color: #3182ce;
+  color: rgba(49, 130, 206, var(--text-opacity));
+  text-decoration: underline;
+}
+
 p {
   margin-bottom: 1rem;
 }

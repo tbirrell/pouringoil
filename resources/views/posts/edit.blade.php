@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <posts-form></posts-form>
+    <posts-form :post="{{$post}}"></posts-form>
 @endsection

@@ -20,6 +20,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        dd('wtf');
         $data = $request->all();
 
         $text = TextPost::create(['text' => $data['content']]);
@@ -30,8 +31,6 @@ class PostController extends Controller
             'postable_type' => TextPost::class,
             'postable_id' => $text->id
         ]);
-
-
     }
 
     public function show(Post $post)
@@ -41,12 +40,21 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit');
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+
+        $post->title = $data['title'];
+        $post->slug = strtolower(str_replace(' ', '-', $data['title']));
+        $post->stub = $data['stub'];
+        $text = $post->postable;
+        $text->text = $data['content'];
+        dump($text);
+        $post->save();
+        $text->save();
     }
 
     public function destroy(Post $post)

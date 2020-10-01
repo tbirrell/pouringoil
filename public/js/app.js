@@ -1964,6 +1964,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      pageTitle: 'Create Post',
+      postID: null,
       title: {
         text: '',
         auto: true
@@ -1980,7 +1982,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (typeof this.post !== 'undefined') {
-      this.content = this.post.content;
+      this.pageTitle = 'Edit Post';
+      this.postID = this.post.id;
+      this.content.text = this.post.content;
+      this.content.auto = false;
+      this.title.text = this.post.title;
+      this.title.auto = false;
+      this.stub.text = this.post.stub;
+      this.stub.auto = false;
     }
   },
   watch: {
@@ -1991,11 +2000,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     save: function save() {
-      axios.post('/posts/', {
+      var data = {
         title: this.title.text,
         content: this.content.text,
-        stub: this.stub.text
-      });
+        stub: this.stub.text.substring(0, 1000)
+      };
+
+      if (this.postID === null) {
+        axios.post('/posts/', data);
+      } else {
+        axios.put('/posts/' + this.postID, data);
+      }
     },
     autoTitle: function autoTitle() {
       if (this.title.auto || this.title.text === '') {
@@ -37643,7 +37658,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", [_vm._v("Post")]),
+    _c("h2", [_vm._v(_vm._s(_vm.pageTitle))]),
     _vm._v(" "),
     _c("div", { staticClass: "flex flex-row mt-8" }, [
       _c("div", { staticClass: "w-1/6 font-lg font-bold" }, [

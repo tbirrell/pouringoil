@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::bind('post', function ($value, $route) {
-            return Post::where('slug', $value)->firstOrFail();
+            return Post::orWhere('slug', $value)->orWhere('id', $value)->firstOrFail();
         });
     }
 

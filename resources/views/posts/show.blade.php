@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @markdown
-    {{ $post->content }}
-    @endmarkdown
+
+{{--        {{ markdown()->parse($post->content) }}--}}
+    @markdown($post->content)
+{{--        {{ $post->content }}--}}
+{{--    @endmarkdown--}}
 @endsection
