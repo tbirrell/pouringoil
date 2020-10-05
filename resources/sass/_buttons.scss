@@ -9,3 +9,7 @@
 .btn-blue:hover {
     @apply bg-blue-700;
 }
+
+.btn-blue-disabled {
+    @apply btn bg-blue-200 text-white cursor-not-allowed;
+}

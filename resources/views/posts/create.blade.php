@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Create Post</h1>
-    <posts-form></posts-form>
+    <posts-form :files="{{ $unposted_files }}"></posts-form>
 @endsection

@@ -22,7 +22,7 @@ class Post extends BaseModel
         }
 
         if ($this->postable_type === FilePost::class) {
-           return Storage::disk('local')->get($this->postable->filepath);
+           return Storage::disk('posts')->get($this->postable->filepath);
         }
     }
 }

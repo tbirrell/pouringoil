@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Collection::macro('toAssoc', function () {
+            return $this->reduce(static function ($assoc, $keyValuePair) {
+                list($key, $value) = $keyValuePair;
+                $assoc[$key] = $value;
+                return $assoc;
+            }, new static);
+        });
+        Collection::macro('mapToAssoc', function ($callback) {
+            return $this->map($callback)->toAssoc();
+        });
+        Collection::macro('reindex', function () {
+            return collect(array_values($this->toArray()));
+        });
     }
 }

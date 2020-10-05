@@ -1955,12 +1955,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    post: {
-      type: Object,
-      required: false
-    }
+    post: Object,
+    files: Array
   },
   data: function data() {
     return {
@@ -1977,10 +1990,14 @@ __webpack_require__.r(__webpack_exports__);
       stub: {
         text: '',
         auto: true
-      }
+      },
+      selectedFile: ''
     };
   },
   mounted: function mounted() {
+    console.log(!!this.files);
+    console.log(this.files.length > 0);
+
     if (typeof this.post !== 'undefined') {
       this.pageTitle = 'Edit Post';
       this.postID = this.post.id;
@@ -2003,11 +2020,14 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         title: this.title.text,
         content: this.content.text,
+        filepath: this.selectedFile,
         stub: this.stub.text.substring(0, 1000)
       };
 
       if (this.postID === null) {
-        axios.post('/posts/', data);
+        axios.post('/posts/', data).then(function (res) {
+          window.location.href = '/posts/' + res.data;
+        });
       } else {
         axios.put('/posts/' + this.postID, data);
       }
@@ -2015,7 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
     autoTitle: function autoTitle() {
       if (this.title.auto || this.title.text === '') {
         this.title.auto = true;
-        this.title.text = this.content.text.match(/# ?(.*)/)[1];
+        var title_matches = this.content.text.match(/# ?(.*)/);
+        this.title.text = title_matches ? title_matches[1] : this.title.text;
       }
     },
     autoStub: function autoStub() {
@@ -2023,6 +2044,22 @@ __webpack_require__.r(__webpack_exports__);
         this.stub.auto = true;
         this.stub.text = this.content.text.substring(0, 1000);
       }
+    },
+    fetchFile: function fetchFile() {
+      var _this = this;
+
+      axios.get('/api/fetch-file', {
+        params: {
+          filepath: this.selectedFile
+        }
+      }).then(function (res) {
+        _this.content.text = res.data;
+      });
+    }
+  },
+  computed: {
+    readyToSave: function readyToSave() {
+      return this.content.text !== '' && this.title.text !== '';
     }
   }
 });
@@ -37658,7 +37695,82 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", [_vm._v(_vm._s(_vm.pageTitle))]),
+    _c("h1", [_vm._v(_vm._s(_vm.pageTitle))]),
+    _vm._v(" "),
+    _vm.files && _vm.files.length > 0
+      ? _c("div", { staticClass: "inline-block mt-8 relative w-64" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedFile,
+                  expression: "selectedFile"
+                }
+              ],
+              staticClass: "float-right",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedFile = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.fetchFile
+                ]
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("Unposted Files")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.files, function(filepath) {
+                return _c("option", [_vm._v(_vm._s(filepath))])
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "fill-current h-4 w-4",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 20 20"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "flex flex-row mt-8" }, [
       _c("div", { staticClass: "w-1/6 font-lg font-bold" }, [
@@ -37751,10 +37863,15 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "btn-blue w-16 mt-4 float-right",
+        staticClass: "w-16 mt-4 float-right",
+        class: {
+          "btn-blue": _vm.readyToSave,
+          "btn-blue-disabled": !_vm.readyToSave
+        },
+        attrs: { disabled: !_vm.readyToSave },
         on: { click: _vm.save }
       },
-      [_vm._v("Save")]
+      [_vm._v("Save\n    ")]
     )
   ])
 }
