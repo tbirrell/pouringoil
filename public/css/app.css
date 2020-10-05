@@ -609,6 +609,22 @@ p {
   margin-bottom: 1rem;
 }
 
+ol {
+  list-style-type: decimal;
+  padding-left: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ol > li {
+  padding-left: 0.25rem;
+}
+
 .container {
   width: 100%;
 }

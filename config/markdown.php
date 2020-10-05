@@ -1,5 +1,7 @@
 <?php
 
+use App\MarkdownParser;
+
 return [
 
     /* -----------------------------------------------------------------
@@ -13,6 +15,9 @@ return [
         'commonmark' => [
             'class' => Arcanedev\LaravelMarkdown\Parsers\CommonMarkParser::class,
         ],
+        'custom'=> [
+            'class' => MarkdownParser::class,
+        ]
     ],
 
 ];

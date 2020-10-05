@@ -51,7 +51,9 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $parser = markdown()->parser('custom');
+        $post_html = $parser->parse($post->content);
+        return view('posts.show', compact('post_html'));
     }
 
     public function edit(Post $post)

@@ -14,3 +14,14 @@ a {
 p {
     margin-bottom: 1rem;
 }
+
+ol {
+    list-style-type: decimal;
+    @apply pl-12 my-4;
+    & ol {
+        @apply my-0;
+    }
+    > li {
+        @apply pl-1;
+    }
+}
