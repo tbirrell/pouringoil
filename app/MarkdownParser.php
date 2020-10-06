@@ -27,6 +27,11 @@ class MarkdownParser extends AbstractParser
      */
     public function parse(string $text): HtmlString
     {
+        // Assume the first line marks the left margin
+        // This solves auto-formatting issues from the blade templates
+        preg_match('/^\s*/', $text, $leading_whitespace);
+        $text = preg_replace("/^{$leading_whitespace[0]}/m", '', $text);
+
         $environment = Environment::createCommonMarkEnvironment()
             ->addExtension(new FootnoteExtension)
             ->addExtension(new TableExtension);

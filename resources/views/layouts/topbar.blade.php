@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="pl-8 flex flex-col justify-center h-full">
-        <ul class="flex flex-row justify-start">
+        <ul class="flex flex-row justify-start unlist">
             <li class="px-4">
                 <a class="text-white font-bold no-underline hover:underline" href="/posts">Posts</a>
             </li>

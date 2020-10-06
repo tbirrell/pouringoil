@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +37,16 @@ class AppServiceProvider extends ServiceProvider
         });
         Collection::macro('reindex', function () {
             return collect(array_values($this->toArray()));
+        });
+
+        Blade::directive('markdown', function (string $markdown) {
+            return empty($markdown)
+                ? "<?php markdown()->parser('custom')->begin(); ?>"
+                : "<?php echo markdown()->parser('custom')->parse({$markdown}); ?>";
+        });
+
+        Blade::directive('endmarkdown', function () {
+            return "<?php echo markdown()->parser('custom')->end(); ?>";
         });
     }
 }

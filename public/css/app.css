@@ -588,14 +588,32 @@ video {
 
 h1 {
   font-size: 3rem;
+  font-weight: 700;
 }
 
 h2 {
   font-size: 2.25rem;
+  font-weight: 700;
 }
 
 h3 {
   font-size: 1.875rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 a {
@@ -609,19 +627,37 @@ p {
   margin-bottom: 1rem;
 }
 
-ol {
-  list-style-type: decimal;
+ol, ul {
   padding-left: 3rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-ol ol {
+ol ol, ol ul, ul ol, ul ul {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-ol > li {
+ol > li, ul > li {
+  padding-left: 0.25rem;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ul.unlist {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul.unlist > li {
   padding-left: 0.25rem;
 }
 

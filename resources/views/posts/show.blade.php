@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    {{ $post_html }}
+    @markdown($post->content)
 @endsection
