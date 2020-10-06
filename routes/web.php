@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('posts', PostController::class)->only(['index', 'show']);
+Route::get('/', [PostController::class,'index']);
 
 Route::get('styleguide', function() {
    return view('styles');
