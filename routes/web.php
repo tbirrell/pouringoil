@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('posts', PostController::class)->only(['index', 'show']);
 Route::get('/', [PostController::class,'index']);
+
+Route::get('/about', [AboutController::class, 'about']);
+Route::get('/tech', [AboutController::class, 'tech']);
 
 Route::get('styleguide', function() {
    return view('styles');

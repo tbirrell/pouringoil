@@ -10,6 +10,12 @@
                 <li class="px-4">
                     <a class="text-white font-bold no-underline hover:underline" href="/posts">Posts</a>
                 </li>
+                <li class="px-4">
+                    <a class="text-white font-bold no-underline hover:underline" href="/about">About</a>
+                </li>
+                <li class="px-4">
+                    <a class="text-white font-bold no-underline hover:underline" href="/tech">Tech</a>
+                </li>
             </ul>
         </div>
     </div>
