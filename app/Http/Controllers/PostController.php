@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('unlisted', 0)->get();
         return view('posts.index', compact('posts'));
     }
 
